@@ -1,0 +1,63 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Cursor AI Rules – Projeto Python (Scrapy + FastAPI + Transformers)
+
+## 1. Boas Práticas Gerais (Python)
+
+- **DRY & KISS:** Incentivar código limpo, reaproveitável e simples. Sem repetições desnecessárias.
+- **PEP 8:** Sempre sugerir e aplicar formatação PEP 8 (indentação, nomes descritivos, etc.).
+- **Tipagem:** Priorizar sugestões com `type hints` sempre que possível.
+- **Testes:** Sempre que criar novas funcionalidades, sugerir testes unitários usando `pytest` ou `unittest`.
+
+## 2. Scrapy
+
+- **Organização:** Manter spiders, pipelines e middlewares em seus módulos corretos.
+- **Delay & Throttle:** Sugerir configurações de `DOWNLOAD_DELAY` e `AUTOTHROTTLE` para evitar bloqueios.
+- **User-Agent:** Recomendar definição customizada de `USER_AGENT` e rotação para evitar bloqueios.
+- **Selectors:** Priorizar o uso de seletores CSS e XPath otimizados, sem excesso de profundidade.
+- **Exportação:** Incentivar boas práticas na exportação dos dados (JSON, CSV, banco de dados).
+- **Testes:** Sugerir uso do `scrapy shell` para testes rápidos de scraping.
+
+## 3. FastAPI
+
+- **Async/Await:** Implementar rotas e handlers de forma assíncrona para melhor performance.
+- **Pydantic Models:** Utilizar modelos Pydantic para validação de request e response.
+- **Segurança:** Implementar CORS, autenticação (JWT, por exemplo) e rate limiting.
+- **Middlewares:** Criar middlewares para logging, autenticação e tratamento de erros.
+- **Testes:** Utilizar `TestClient` do FastAPI para testes automatizados.
+- **Documentação:** Garantir que os endpoints estejam bem documentados via Swagger/OpenAPI.
+
+## 4. Hugging Face Transformers
+
+- **Pipeline:** Utilizar `from transformers import pipeline` quando adequado para simplificação.
+- **Modelos:** Garantir que os modelos utilizados estejam atualizados e sejam adequados para o caso de uso.
+- **Cache:** Validar caching de modelos para garantir performance.
+- **Fine-tuning:** Seguir boas práticas em fine-tuning, incluindo uso de `Trainer` e datasets balanceados.
+- **Testes:** Testar saídas dos modelos para consistência e evitar erros silenciosos.
+- **GPU/CPU:** Sugerir otimizações como `.to('cuda')` quando GPU estiver disponível.
+
+## 5. Arquitetura & Integração
+
+- **Scrapy + FastAPI:** Para integração, recomendar práticas para expor resultados dos crawlers via API.
+- **Transformers + FastAPI:** Criar rotas específicas para entrada e retorno de previsões (por exemplo, `/predict`).
+- **Jobs Assíncronos:** Para tarefas pesadas, sugerir uso de background tasks do FastAPI ou integração com Celery/RQ.
+- **Logs:** Implementar logging detalhado usando a biblioteca `logging`.
+- **Persistência:** Se necessário, recomendar bancos de dados (como SQLite, PostgreSQL) e ORMs como SQLAlchemy ou Tortoise ORM.
+
+## 6. Documentação & DevOps
+
+- **README:** Incluir instruções claras de uso, setup e exemplos de requisição e resposta.
+- **Docker:** Sugerir containerização da aplicação para facilitar o deploy.
+- **CI/CD:** Reforçar a importância de pipelines de CI/CD (GitHub Actions, GitLab CI).
+- **Lint & Format:** Configurar ferramentas automáticas como `black`, `flake8` e `isort`.
+
+## Extras
+
+- **Evitar:** Não sugerir bibliotecas desnecessárias que aumentem a complexidade ou o tamanho do projeto sem benefícios reais.
+- **Performance:** Dar dicas de otimização quando detectar gargalos.
+- **Inovação:** Propor melhorias tecnológicas sempre que aplicável (por exemplo, novos modelos da Hugging Face).
+
+---

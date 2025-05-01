@@ -1,0 +1,12 @@
+{
+  "title": "Tomei bronca por fazer MonoRepo",
+  "content": [
+    "Fala galera! tudo certo?",
+    "Eu sou dev e sempre desenvolvi meus projetos web separando backend e frontend em dois repositórios diferentes, porque sempre foi algo que fez sentido pra mim.",
+    "Porém recentemente, conversando com alguns colegas descobri que essa recomendação é mais pra  projetos grandes, com times separados, e pra criar um micro-SaaS próprio é ideal manter tudo em um repositório só (separando em duas pastas \"frontend\" e \"backend\")",
+    "Daí eu decidi adaptar um projeto meu para essa nova estrutura. Acontece que o outro dev que desenvolveu comigo não curtiu muito á alteração kkkkkk",
+    "Com isso eu fiquei bastante na dúvida, será que essa praticidade á mais compensa no longo prazo?",
+    "O que acham? Monorepo é melhor mesmo? ou é desorganização total?",
+    "pra acompanhar meus projetos me segue lá no x: "
+  ]
+}
