@@ -21,7 +21,7 @@ class TabNewsSpider(scrapy.Spider):
         return title
 
     def parse_content(self, response):
-        content = []
+        content = ""
 
         body = response.css(".markdown-body").get()
         bodyParsed = scrapy.Selector(text=body, type="html")
@@ -29,7 +29,7 @@ class TabNewsSpider(scrapy.Spider):
         for element in bodyParsed.css("p"):
             text = element.css("::text").get()
             if text:
-                content.append(text)
+                content += " " + text
 
         return content
 
@@ -52,7 +52,7 @@ class TabNewsSpider(scrapy.Spider):
     def parse(self, response):
         content = {
             "title": "",
-            "content": [],
+            "content": "",
         }
 
         content["title"] = self.parse_title(response)
