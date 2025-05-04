@@ -51,8 +51,9 @@ class TabNewsSpider(scrapy.Spider):
 
     def parse(self, response):
         content = {
-            "title": "",
             "content": "",
+            "title": "",
+            "url": response.url,
         }
 
         content["title"] = self.parse_title(response)
