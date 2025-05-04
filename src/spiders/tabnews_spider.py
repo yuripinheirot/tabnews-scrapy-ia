@@ -10,9 +10,7 @@ class TabNewsSpider(scrapy.Spider):
         super(TabNewsSpider, self).__init__(*args, **kwargs)
         self.urls = urls or []
 
-    def start_requests(self):
-        for url in self.urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+    # Utils
 
     def export_json(self, items, filename):
         with open(filename, "w") as f:
@@ -35,16 +33,21 @@ class TabNewsSpider(scrapy.Spider):
 
         return content
 
-    def create_file_name(self, title):
-        return f"output/tabnews-{title.lower().replace(' ', '-')}.json"
+    def create_file_name(self, url):
+        return f"output/{url.split('/')[-1]}.json"
 
-    def export_content(self, content):
+    def export_content(self, content, filename):
         output_dir = Path("output")
         if not output_dir.exists():
             output_dir.mkdir(parents=True)
 
-        filename = self.create_file_name(content["title"])
         self.export_json(content, filename)
+
+    # Scrapy
+
+    def start_requests(self):
+        for url in self.urls:
+            yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
         content = {
@@ -55,4 +58,5 @@ class TabNewsSpider(scrapy.Spider):
         content["title"] = self.parse_title(response)
         content["content"] = self.parse_content(response)
 
-        self.export_content(content)
+        filename = self.create_file_name(response.url)
+        self.export_content(content, filename)
