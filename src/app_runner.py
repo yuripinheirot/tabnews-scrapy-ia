@@ -5,7 +5,7 @@ import logging
 import time
 import os
 import json
-from src.spiders.tabnews_spider import TabNewsSpider
+from src.tabnews_spider import TabNewsSpider
 
 logger = logging.getLogger(__name__)
 crochet.setup()
@@ -30,12 +30,12 @@ class AppRunner:
             while not os.path.exists(export_file):
                 if time.time() - start_time > 15:
                     logger.error(
-                        f"Timeout ao esperar pelo arquivo de exportação para a URL: {url}"
+                        f"Timeout while waiting for the export file for the URL: {url}"
                     )
                     return {
-                        "error": f"Timeout ao esperar pelo arquivo de exportação para a URL: {url}"
+                        "error": f"Timeout while waiting for the export file for the URL: {url}"
                     }
-                logger.info(f"Aguardando exportação do arquivo para a URL: {url}")
+                logger.info(f"Waiting for the export file for the URL: {url}")
                 time.sleep(0.5)
 
             with open(export_file, "r") as file:
@@ -49,6 +49,6 @@ class AppRunner:
         results = self.check_results()
 
         return {
-            "message": "Todos os spiders foram processados com sucesso.",
+            "message": "All urls were processed successfully.",
             "results": results,
         }

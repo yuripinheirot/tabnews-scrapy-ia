@@ -4,7 +4,7 @@ from transformers import pipeline
 model_name = "facebook/bart-large-cnn"
 
 
-def bart_large(original_text: str) -> str:
+def summarization_ai(original_text: str) -> str:
     pipe = pipeline(
         "summarization",
         model=model_name,

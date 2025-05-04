@@ -11,7 +11,6 @@ class TabNewsSpider(scrapy.Spider):
         self.urls = urls or []
 
     # Utils
-
     def export_json(self, items, filename):
         with open(filename, "w") as f:
             json.dump(items, f, ensure_ascii=False)
@@ -29,7 +28,7 @@ class TabNewsSpider(scrapy.Spider):
         for element in bodyParsed.css("p"):
             text = element.css("::text").get()
             if text:
-                content += " " + text
+                content += text + " "
 
         return content
 
@@ -44,7 +43,6 @@ class TabNewsSpider(scrapy.Spider):
         self.export_json(content, filename)
 
     # Scrapy
-
     def start_requests(self):
         for url in self.urls:
             yield scrapy.Request(url=url, callback=self.parse)
