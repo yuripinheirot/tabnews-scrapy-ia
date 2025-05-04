@@ -15,7 +15,7 @@ class Url(BaseModel):
 @app.post("/")
 def read_root(payload: Url):
     process = CrawlerProcess()
-    process.crawl(TabNewsSpider)
+    process.crawl(TabNewsSpider, urls=payload.urls)
     process.start()
 
     return {

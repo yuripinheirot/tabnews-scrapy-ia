@@ -6,12 +6,12 @@ import scrapy
 class TabNewsSpider(scrapy.Spider):
     name = "tabnews"
 
-    def start_requests(self):
-        urls = [
-            "https://www.tabnews.com.br/gabrieldsmiranda/tomei-bronca-por-fazer-monorepo",
-        ]
+    def __init__(self, urls=None, *args, **kwargs):
+        super(TabNewsSpider, self).__init__(*args, **kwargs)
+        self.urls = urls or []
 
-        for url in urls:
+    def start_requests(self):
+        for url in self.urls:
             yield scrapy.Request(url=url, callback=self.parse)
 
     def export_json(self, items, filename):
