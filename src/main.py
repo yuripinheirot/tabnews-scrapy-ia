@@ -1,5 +1,5 @@
 import logging
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from pydantic import BaseModel
 from src.app_runner import AppRunner
 
@@ -17,7 +17,7 @@ class Text(BaseModel):
 
 
 @app.post("/get-by-urls")
-async def read_root(payload: Url):
+async def read_root(response: Response, payload: Url):
     try:
         logger.info(f"Received request to crawl. URLs received: {payload.urls}")
         app_runner = AppRunner(payload.urls)
@@ -25,5 +25,6 @@ async def read_root(payload: Url):
 
         return results
     except Exception as e:
-        logger.error(f"An error occurred while enqueuing the spider. Error: {e}")
+        logger.error(e)
+        response.status_code = 500
         return {"error": f"Failed to start spider: {str(e)}"}
