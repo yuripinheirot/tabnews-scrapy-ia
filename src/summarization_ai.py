@@ -8,7 +8,7 @@ def summarization_ai(original_text: str) -> str:
     pipe = pipeline(
         "summarization",
         model=model_name,
-        device_map="auto",  # Use available GPU if present
+        device_map="cpu",  # Use available GPU if present
     )
 
     # Configurações para o resumo
