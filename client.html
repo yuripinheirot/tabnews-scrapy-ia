@@ -21,6 +21,7 @@
       }
       .input-container {
         display: flex;
+        flex-direction: column;
         margin-bottom: 20px;
       }
       input[type='text'] {
@@ -28,14 +29,29 @@
         padding: 10px;
         font-size: 16px;
         border: 1px solid #ddd;
-        border-radius: 4px 0 0 4px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+      textarea {
+        width: 100%;
+        height: 120px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        resize: vertical;
+      }
+      .button-container {
+        display: flex;
+        justify-content: flex-end;
       }
       button {
         padding: 10px 20px;
         background-color: #4caf50;
         color: white;
         border: none;
-        border-radius: 0 4px 4px 0;
+        border-radius: 4px;
         cursor: pointer;
         font-size: 16px;
       }
@@ -79,23 +95,45 @@
         text-align: center;
         display: none;
       }
+      .input-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .input-help {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 10px;
+      }
     </style>
   </head>
   <body>
     <h1>TabNews Summarizer</h1>
 
     <div class="input-container">
+      <div class="input-label">URL única:</div>
       <input
         type="text"
         id="urlInput"
         placeholder="Digite a URL do TabNews (ex: https://www.tabnews.com.br/...)"
       />
-      <button
-        type="button"
-        onclick="fetchSummary(event)"
-      >
-        Resumir
-      </button>
+
+      <div class="input-label">Múltiplas URLs:</div>
+      <div class="input-help">
+        Insira uma URL por linha para processar várias páginas de uma vez.
+      </div>
+      <textarea
+        id="multipleUrlsInput"
+        placeholder="https://www.tabnews.com.br/...&#10;https://www.tabnews.com.br/...&#10;https://www.tabnews.com.br/..."
+      ></textarea>
+
+      <div class="button-container">
+        <button
+          type="button"
+          onclick="fetchSummary(event)"
+        >
+          Resumir
+        </button>
+      </div>
     </div>
 
     <div
@@ -119,10 +157,28 @@
       async function fetchSummary(event) {
         event.preventDefault()
 
-        const urlInput = document.getElementById('urlInput').value.trim()
+        const singleUrl = document.getElementById('urlInput').value.trim()
+        const multipleUrls = document
+          .getElementById('multipleUrlsInput')
+          .value.trim()
 
-        if (!urlInput) {
-          showError('Por favor, insira uma URL válida.')
+        let urls = []
+
+        // Adicionar URL única se fornecida
+        if (singleUrl) {
+          urls.push(singleUrl)
+        }
+
+        // Adicionar múltiplas URLs se fornecidas
+        if (multipleUrls) {
+          const urlLines = multipleUrls
+            .split('\n')
+            .filter((url) => url.trim() !== '')
+          urls = [...urls, ...urlLines]
+        }
+
+        if (urls.length === 0) {
+          showError('Por favor, insira pelo menos uma URL válida.')
           return
         }
 
@@ -139,7 +195,7 @@
               Accept: 'application/json',
             },
             body: JSON.stringify({
-              urls: [urlInput],
+              urls: urls,
             }),
           })
 
@@ -186,7 +242,7 @@
             resultCard.appendChild(titleElement)
 
             // URL
-            const urlElement = document.createElement('div')
+            const urlElement = document.createElement('a')
             urlElement.className = 'result-url'
             urlElement.textContent = result.url
             resultCard.appendChild(urlElement)
