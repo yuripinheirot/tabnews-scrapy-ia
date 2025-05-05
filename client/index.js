@@ -79,6 +79,8 @@ function displayResults(data) {
       const urlElement = document.createElement('a')
       urlElement.className = 'result-url'
       urlElement.textContent = result.url
+      urlElement.href = result.url
+      urlElement.target = '_blank'
       resultCard.appendChild(urlElement)
 
       // Conteúdo original
