@@ -18,9 +18,10 @@ def summarization_ai(original_text: str) -> str:
     outputs = pipe(
         original_text,
         max_length=1024,  # Limita o tamanho do resumo
-        min_length=100,  # Garante um resumo com tamanho mínimo
+        min_length=128,  # Garante um resumo com tamanho mínimo
         do_sample=False,  # Desativa amostragem para resultados determinísticos
         truncation=True,  # Trunca textos muito longos
+        num_workers=4,  # Aumenta o número de threads para processamento
     )
 
     # Extrai o texto resumido

@@ -27,6 +27,7 @@ async function fetchSummary(event) {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        'X-API-Key': 'abc@123',
       },
       body: JSON.stringify({
         urls: urls,
