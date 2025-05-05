@@ -41,10 +41,6 @@ class Url(BaseModel):
     urls: list[str]
 
 
-class Text(BaseModel):
-    text: str
-
-
 @app.post("/get-by-urls")
 async def read_root(response: Response, payload: Url):
     try:
