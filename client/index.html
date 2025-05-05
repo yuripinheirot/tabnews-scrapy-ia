@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>TabNews Summarizer</title>
+    <link
+      rel="stylesheet"
+      href="index.css"
+    />
+  </head>
+  <body>
+    <h1>TabNews Summarizer</h1>
+
+    <div class="input-container">
+      <div class="input-label">Múltiplas URLs:</div>
+      <div class="input-help">
+        Insira uma URL por linha para processar várias páginas de uma vez.
+      </div>
+      <textarea
+        id="multipleUrlsInput"
+        placeholder="https://www.tabnews.com.br/...&#10;https://www.tabnews.com.br/...&#10;https://www.tabnews.com.br/..."
+      ></textarea>
+
+      <div class="button-container">
+        <button
+          type="button"
+          onclick="fetchSummary(event)"
+        >
+          Resumir
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="loading"
+      class="loading"
+    >
+      <p>Processando... Isso pode levar alguns segundos.</p>
+    </div>
+
+    <div
+      id="errorMessage"
+      class="error-message"
+    ></div>
+
+    <div
+      id="resultsContainer"
+      class="results-container"
+    ></div>
+
+    <script src="index.js"></script>
+  </body>
+</html>

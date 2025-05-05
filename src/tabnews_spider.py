@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import scrapy
+import os
 from src.export_json import export_json
 
 
@@ -31,6 +32,11 @@ class TabNewsSpider(scrapy.Spider):
     # Scrapy
     def start_requests(self):
         for url in self.urls:
+            export_file = f"output/{url.split('/')[-1]}.json"
+            if os.path.exists(export_file):
+                self.logger.info(f"JSON file already exists for URL: {url}. Skipping.")
+                continue
+
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
