@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>TabNews Summarizer</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .input-container {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      input[type='text'] {
+        flex: 1;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px 0 0 4px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .loading {
+        text-align: center;
+        display: none;
+        margin: 20px 0;
+      }
+      .results-container {
+        margin-top: 30px;
+      }
+      .result-card {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 20px;
+        background-color: #f9f9f9;
+      }
+      .result-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .result-url {
+        color: #0066cc;
+        margin-bottom: 15px;
+        word-break: break-all;
+      }
+      .result-section {
+        margin-bottom: 15px;
+      }
+      .result-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .error-message {
+        color: red;
+        text-align: center;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>TabNews Summarizer</h1>
+
+    <div class="input-container">
+      <input
+        type="text"
+        id="urlInput"
+        placeholder="Digite a URL do TabNews (ex: https://www.tabnews.com.br/...)"
+      />
+      <button
+        type="button"
+        onclick="fetchSummary(event)"
+      >
+        Resumir
+      </button>
+    </div>
+
+    <div
+      id="loading"
+      class="loading"
+    >
+      <p>Processando... Isso pode levar alguns segundos.</p>
+    </div>
+
+    <div
+      id="errorMessage"
+      class="error-message"
+    ></div>
+
+    <div
+      id="resultsContainer"
+      class="results-container"
+    ></div>
+
+    <script>
+      async function fetchSummary(event) {
+        event.preventDefault()
+
+        const urlInput = document.getElementById('urlInput').value.trim()
+
+        if (!urlInput) {
+          showError('Por favor, insira uma URL válida.')
+          return
+        }
+
+        // Mostrar loading e esconder mensagens de erro
+        document.getElementById('loading').style.display = 'block'
+        document.getElementById('errorMessage').style.display = 'none'
+        document.getElementById('resultsContainer').innerHTML = ''
+
+        try {
+          const response = await fetch('http://127.0.0.1:8000/get-by-urls', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({
+              urls: [urlInput],
+            }),
+          })
+
+          if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status}`)
+          }
+
+          const data = await response.json()
+          console.log('🚀 ~ fetchSummary ~ data:', data)
+          displayResults(data)
+        } catch (error) {
+          console.log(error)
+          showError(`Falha ao processar a requisição: ${error.message}`)
+        } finally {
+          console.log('finally')
+          document.getElementById('loading').style.display = 'none'
+        }
+      }
+
+      function displayResults(data) {
+        const resultsContainer = document.getElementById('resultsContainer')
+        resultsContainer.innerHTML = ''
+
+        if (data.error) {
+          showError(data.error)
+          return
+        }
+
+        // Exibir mensagem de sucesso
+        const messageElement = document.createElement('p')
+        messageElement.textContent = data.message
+        resultsContainer.appendChild(messageElement)
+
+        // Exibir resultados
+        if (data.results && data.results.length > 0) {
+          data.results.forEach((result) => {
+            const resultCard = document.createElement('div')
+            resultCard.className = 'result-card'
+
+            // Título
+            const titleElement = document.createElement('div')
+            titleElement.className = 'result-title'
+            titleElement.textContent = result.title || 'Sem título'
+            resultCard.appendChild(titleElement)
+
+            // URL
+            const urlElement = document.createElement('div')
+            urlElement.className = 'result-url'
+            urlElement.textContent = result.url
+            resultCard.appendChild(urlElement)
+
+            // Conteúdo original
+            const contentSection = document.createElement('div')
+            contentSection.className = 'result-section'
+
+            const contentLabel = document.createElement('div')
+            contentLabel.className = 'result-label'
+            contentLabel.textContent = 'Conteúdo Original:'
+            contentSection.appendChild(contentLabel)
+
+            const contentText = document.createElement('div')
+            contentText.textContent = result.content || 'Sem conteúdo'
+            contentSection.appendChild(contentText)
+
+            resultCard.appendChild(contentSection)
+
+            // Resumo
+            const summarySection = document.createElement('div')
+            summarySection.className = 'result-section'
+
+            const summaryLabel = document.createElement('div')
+            summaryLabel.className = 'result-label'
+            summaryLabel.textContent = 'Resumo:'
+            summarySection.appendChild(summaryLabel)
+
+            const summaryText = document.createElement('div')
+            summaryText.textContent =
+              result.resume_summarized || 'Sem resumo disponível'
+            summarySection.appendChild(summaryText)
+
+            resultCard.appendChild(summarySection)
+
+            resultsContainer.appendChild(resultCard)
+          })
+        } else {
+          const noResultsElement = document.createElement('p')
+          noResultsElement.textContent = 'Nenhum resultado encontrado.'
+          resultsContainer.appendChild(noResultsElement)
+        }
+      }
+
+      function showError(message) {
+        const errorElement = document.getElementById('errorMessage')
+        errorElement.textContent = message
+        errorElement.style.display = 'block'
+      }
+    </script>
+  </body>
+</html>
