@@ -22,7 +22,7 @@ The `tabnews-scrapy-ia` application is designed to scrape content from specified
 
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/yuripinheirot/tabnews-scrapy-ia
    cd tabnews-scrapy-ia
    ```
 
@@ -41,7 +41,7 @@ The `tabnews-scrapy-ia` application is designed to scrape content from specified
 4. **Run the Application**:
    Start the FastAPI server:
    ```bash
-   uvicorn src.main:app --reload
+   fastapi dev ./src/main.py
    ```
 
 5. **Test the Application**:
