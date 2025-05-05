@@ -1,10 +1,10 @@
-# tabnews-scrapy-ia
+# 🚀 tabnews-scrapy-ia
 
-## Overview
+## 📝 Overview
 
 The `tabnews-scrapy-ia` application is designed to scrape content from specified URLs, process the data, and provide summarized results through a FastAPI interface. It leverages Scrapy for web scraping, FastAPI for building the API, and a custom AI summarization module to condense the content.
 
-## Technologies Used
+## 🛠️ Technologies Used
 
 - **Python**: The core programming language.
 - **Scrapy**: For web scraping.
@@ -14,11 +14,11 @@ The `tabnews-scrapy-ia` application is designed to scrape content from specified
 - **dotenv**: For environment variable management.
 - **Logging**: For logging application activities.
 
-## API Endpoints
+## 🔗 API Endpoints
 
 - **POST /get-by-urls**: Accepts a list of URLs to scrape and returns the summarized content.
 
-## How to Run the Application
+## ▶️ How to Run the Application
 
 1. **Clone the Repository**:
    ```bash
@@ -50,7 +50,15 @@ The `tabnews-scrapy-ia` application is designed to scrape content from specified
 6. **Access the API Documentation**:
    Visit `http://127.0.0.1:8000/docs` to view the Swagger UI and test the endpoints interactively.
 
-## Testing the Application
+## 🔑 Important Configuration
+
+- **API Key**: Ensure that the `X-API-Key` in `client/index.js` matches the `API_KEY` set in your `.env` file. This is crucial for the application to authenticate requests properly.
+
+## 🌐 Target Website
+
+- This scraper is specifically designed for the [TabNews](https://www.tabnews.com.br/) website. 📰✨
+
+## 🧪 Testing the Application
 
 To test the application using the client:
 
@@ -65,11 +73,7 @@ To test the application using the client:
 3. **Enter URLs and Submit**:
    Input the URLs you wish to scrape and click the submit button to see the results.
 
-## Additional Information
+## ℹ️ Additional Information
 
 - **Logging**: The application logs important events and errors, which can be found in the console output.
 - **Error Handling**: The application handles errors gracefully and returns appropriate HTTP status codes and messages.
-
-## Important Configuration
-
-- **API Key**: Ensure that the `X-API-Key` in `client/index.js` matches the `API_KEY` set in your `.env` file. This is crucial for the application to authenticate requests properly.
