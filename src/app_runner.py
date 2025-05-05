@@ -7,6 +7,7 @@ import os
 import json
 from src.tabnews_spider import TabNewsSpider
 from src.summarization_ai import summarization_ai
+from src.export_json import export_json
 
 logger = logging.getLogger(__name__)
 crochet.setup()
@@ -46,21 +47,22 @@ class AppRunner:
 
     def summarize_results(self, results):
         summarized_results = []
+
         for result in results:
             summarized_result = {
                 "url": result["url"],
                 "title": result["title"],
                 "content": result["content"],
-                "resume_summarized": "",
+                "resume_summarized": result.get("resume_summarized", ""),
             }
 
-            if not result["content"].strip():
-                summary = ""
-            else:
-                summary = summarization_ai(result["content"])
+            if not summarized_result["resume_summarized"]:
+                summarized_result["resume_summarized"] = summarization_ai(
+                    result["content"]
+                )
 
-            summarized_result["resume_summarized"] = summary
             summarized_results.append(summarized_result)
+            export_json(result["url"], summarized_result)
 
         return summarized_results
 

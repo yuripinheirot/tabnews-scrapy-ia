@@ -110,13 +110,6 @@
     <h1>TabNews Summarizer</h1>
 
     <div class="input-container">
-      <div class="input-label">URL única:</div>
-      <input
-        type="text"
-        id="urlInput"
-        placeholder="Digite a URL do TabNews (ex: https://www.tabnews.com.br/...)"
-      />
-
       <div class="input-label">Múltiplas URLs:</div>
       <div class="input-help">
         Insira uma URL por linha para processar várias páginas de uma vez.
@@ -157,17 +150,11 @@
       async function fetchSummary(event) {
         event.preventDefault()
 
-        const singleUrl = document.getElementById('urlInput').value.trim()
         const multipleUrls = document
           .getElementById('multipleUrlsInput')
           .value.trim()
 
         let urls = []
-
-        // Adicionar URL única se fornecida
-        if (singleUrl) {
-          urls.push(singleUrl)
-        }
 
         // Adicionar múltiplas URLs se fornecidas
         if (multipleUrls) {
