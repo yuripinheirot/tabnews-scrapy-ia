@@ -69,3 +69,7 @@ To test the application using the client:
 
 - **Logging**: The application logs important events and errors, which can be found in the console output.
 - **Error Handling**: The application handles errors gracefully and returns appropriate HTTP status codes and messages.
+
+## Important Configuration
+
+- **API Key**: Ensure that the `X-API-Key` in `client/index.js` matches the `API_KEY` set in your `.env` file. This is crucial for the application to authenticate requests properly.
