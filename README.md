@@ -18,6 +18,11 @@ The `tabnews-scrapy-ia` application is designed to scrape content from specified
 
 - **POST /get-by-urls**: Accepts a list of URLs to scrape and returns the summarized content.
 
+## 🌐 Target Website
+
+- This scraper is specifically designed for the [TabNews](https://www.tabnews.com.br/) website. 📰✨
+
+
 ## ▶️ How to Run the Application
 
 1. **Clone the Repository**:
@@ -53,10 +58,6 @@ The `tabnews-scrapy-ia` application is designed to scrape content from specified
 ## 🔑 Important Configuration
 
 - **API Key**: Ensure that the `X-API-Key` in `client/index.js` matches the `API_KEY` set in your `.env` file. This is crucial for the application to authenticate requests properly.
-
-## 🌐 Target Website
-
-- This scraper is specifically designed for the [TabNews](https://www.tabnews.com.br/) website. 📰✨
 
 ## 🧪 Testing the Application
 
