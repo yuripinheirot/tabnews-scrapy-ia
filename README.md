@@ -2,7 +2,7 @@
 
 ## 📝 Overview
 
-The `tabnews-scrapy-ia` application is designed to scrape content from specified URLs, process the data, and provide summarized results through a FastAPI interface. It leverages Scrapy for web scraping, FastAPI for building the API, and a custom AI summarization module to condense the content.
+The `tabnews-scrapy-ia` application is designed to scrape content from specified URLs on [TabNews](https://www.tabnews.com.br/), process the data, and provide summarized results through a FastAPI interface. It leverages Scrapy for web scraping, FastAPI for building the API, and a custom AI summarization module to condense the content.
 
 ## 🛠️ Technologies Used
 
@@ -17,10 +17,6 @@ The `tabnews-scrapy-ia` application is designed to scrape content from specified
 ## 🔗 API Endpoints
 
 - **POST /get-by-urls**: Accepts a list of URLs to scrape and returns the summarized content.
-
-## 🌐 Target Website
-
-- This scraper is specifically designed for the [TabNews](https://www.tabnews.com.br/) website. 📰✨
 
 
 ## ▶️ How to Run the Application
