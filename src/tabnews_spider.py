@@ -29,7 +29,6 @@ class TabNewsSpider(scrapy.Spider):
 
         return content
 
-    # Scrapy
     def start_requests(self):
         for url in self.urls:
             export_file = f"output/{url.split('/')[-1]}.json"

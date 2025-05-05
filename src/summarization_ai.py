@@ -14,7 +14,6 @@ def summarization_ai(original_text: str) -> str:
         device_map="cpu",
     )
 
-    # Configurações para o resumo
     outputs = pipe(
         original_text,
         max_length=1024,  # Limita o tamanho do resumo
@@ -24,7 +23,6 @@ def summarization_ai(original_text: str) -> str:
         num_workers=4,  # Aumenta o número de threads para processamento
     )
 
-    # Extrai o texto resumido
     summary = outputs[0]["summary_text"]
 
     return summary
