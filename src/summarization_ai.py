@@ -1,14 +1,17 @@
 import torch
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer
 
 model_name = "facebook/bart-large-cnn"
 
 
 def summarization_ai(original_text: str) -> str:
+    tokenizer = AutoTokenizer.from_pretrained(model_name, model_max_length=1024)
+
     pipe = pipeline(
         "summarization",
         model=model_name,
-        device_map="cpu",  # Use available GPU if present
+        tokenizer=tokenizer,
+        device_map="cpu",
     )
 
     # Configurações para o resumo
